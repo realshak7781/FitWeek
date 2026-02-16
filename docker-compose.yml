@@ -5,7 +5,7 @@ services:
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: your_password
+      POSTGRES_PASSWORD: my_db_fitWeek
       POSTGRES_DB: fitweek_db
     ports:
       - "5432:5432"
