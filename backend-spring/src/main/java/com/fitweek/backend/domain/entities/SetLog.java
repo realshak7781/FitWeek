@@ -24,6 +24,6 @@ public class SetLog {
     private Integer rpe;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "workout_session_id")
+    @JoinColumn(name ="workout_session_id")
     private WorkoutSession session;
 }

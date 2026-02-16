@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface WorkoutRepository extends JpaRepository<WorkoutSession,Long> {
-    Optional<WorkoutSession> findWorkoutDate(LocalDate date);
+    Optional<WorkoutSession> findByWorkoutDate(LocalDate workoutDate);
 }
