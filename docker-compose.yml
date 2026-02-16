@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: fitweek-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: your_password
+      POSTGRES_DB: fitweek_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - fitweek_data:/var/lib/postgresql/data
+
+volumes:
+  fitweek_data:

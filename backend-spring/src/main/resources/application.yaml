@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: FitWeek-Backend
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/fitweek_db
+    username: postgres
+    password: your_password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update # Automatically creates/updates tables based on Java classes
+    show-sql: false # Prints SQL queries in console for debugging
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+# Custom property for our AI microservice
+ai:
+  service:
+    url: http://localhost:8000
