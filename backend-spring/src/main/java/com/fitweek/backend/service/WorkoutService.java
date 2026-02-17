@@ -31,8 +31,7 @@ public class WorkoutService {
         return workoutRepository.findAll();
     }
 
-    public WorkoutSession getWorkoutByDate(LocalDate date) {
-        return workoutRepository.findByWorkoutDate(date).orElse(null);
+    public Optional<WorkoutSession> getWorkoutByDate(LocalDate date) {
+        return workoutRepository.findByWorkoutDate(date);
     }
-
 }

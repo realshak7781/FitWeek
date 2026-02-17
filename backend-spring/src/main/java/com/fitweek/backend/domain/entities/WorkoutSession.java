@@ -1,6 +1,7 @@
 package com.fitweek.backend.domain.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,5 +29,6 @@ public class WorkoutSession {
 
 //    now this contains a list of workout sessions
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<SetLog> setLogs=new ArrayList<>();
 }

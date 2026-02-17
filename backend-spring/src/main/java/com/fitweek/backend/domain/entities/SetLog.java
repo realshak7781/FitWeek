@@ -1,6 +1,7 @@
 package com.fitweek.backend.domain.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,5 +26,6 @@ public class SetLog {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="workout_session_id")
+    @JsonBackReference
     private WorkoutSession session;
 }
