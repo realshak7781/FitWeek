@@ -4,28 +4,30 @@ import {getAllWorkouts} from "./services/api";
 import {CalendarStrip} from "./components/CalendarStrip";
 import {WorkoutCard} from "./components/WorkoutCard";
 import {EmptyState} from "./components/EmptyState"
+import {AddWorkoutForm} from "./components/AddWorkoutForm";
 
 
 function App() {
     const [workouts,setWorkouts]=useState<WorkoutSession[]>([]);
     const [isLoading,setLoading]=useState<boolean>(true);
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0] ?? "");
-
+    const [showForm, setShowForm] = useState(false);
+    const today = new Date().toISOString().split("T")[0];
     // when the main component mounts , i want to run getAllWorkouts once
 
-    useEffect(() => {
-
-        const fetchWorkouts = async () => {
-            try{
-                const response: WorkoutSession[] = await getAllWorkouts();
-                setWorkouts(response);
-            }catch (error) {
-                console.error("Error loading workouts:", error);
-            }
-            finally {
-                setLoading(false);
-            }
+    const fetchWorkouts = async () => {
+        try{
+            const response: WorkoutSession[] = await getAllWorkouts();
+            setWorkouts(response);
+        }catch (error) {
+            console.error("Error loading workouts:", error);
         }
+        finally {
+            setLoading(false);
+        }
+    }
+
+    useEffect(() => {
         fetchWorkouts();
     }, []);
 
@@ -57,6 +59,17 @@ function App() {
                     <div className="flex justify-between items-end mb-6">
                         <h2 className="text-2xl font-bold">Daily Log</h2>
                         <span className="text-slate-500 font-mono text-sm">{selectedDate}</span>
+
+                        {/*Implementing the + add workout button*/}
+                        {selectedDate === today && (
+                            <button
+                                onClick={() => setShowForm(true)}
+                                className="cursor-pointer bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-full font-bold text-sm shadow-lg shadow-blue-900/20 transition-all active:scale-95"
+                            >
+                                + Log Session
+                            </button>
+                        )}
+
                     </div>
                     <div className="space-y-4">
                         {
@@ -79,6 +92,23 @@ function App() {
                     </div>
                 </section>
             </div>
+
+            {showForm && (
+                <div className="fixed inset-0 bg-black/90 flex items-center justify-center p-4 z-50 backdrop-blur-md">
+                    <div className="max-w-xl w-full">
+                        <AddWorkoutForm onComplete={() => {
+                            setShowForm(false);
+                            fetchWorkouts();
+                        }} />
+                        <button
+                            onClick={() => setShowForm(false)}
+                            className="cursor-pointer mt-6 text-slate-500 hover:text-red-400 text-xs uppercase tracking-widest font-bold w-full transition-colors"
+                        >
+                            [ Cancel Session ]
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
