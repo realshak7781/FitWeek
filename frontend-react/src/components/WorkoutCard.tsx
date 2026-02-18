@@ -1,5 +1,5 @@
 import {WorkoutSession} from "../typesUtil/types";
-
+import {SetTable} from "./SetTable"
 interface Props {
     workout: WorkoutSession;
     isCompact?:boolean;
@@ -26,6 +26,9 @@ export function WorkoutCard({workout,isCompact=false}:Props){
             <div className="bg-blue-500/10 border-l-2 border-blue-500 p-3 italic text-blue-300 text-sm mb-4">
                 "{workout.aiCoachNotes}"
             </div>
+
+            <SetTable sets={workout.setLogs} />
+
             <div className="flex items-center gap-2 text-slate-400 text-sm">
                 <div className="h-1.5 w-1.5 rounded-full bg-green-500"></div>
                 {workout.setLogs.length} sets completed

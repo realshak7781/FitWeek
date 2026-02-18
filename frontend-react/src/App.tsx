@@ -33,6 +33,10 @@ function App() {
         return w.workoutDate===selectedDate;
     })
 
+    const recentWorkouts:WorkoutSession[] = [...workouts]
+        .sort((a, b) => b.workoutDate.localeCompare(a.workoutDate))
+        .slice(0, 3);
+
     if(isLoading){
         return (
             <div className="min-h-screen bg-slate-900 flex items-center justify-center">
@@ -66,8 +70,14 @@ function App() {
                 </section>
             {/*    workout end*/}
 
+            {/*    Footer showing the last three workout sessions*/}
 
-
+                <section className="pt-10 border-t border-slate-900">
+                    <h2 className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-6">Recent Gains</h2>
+                    <div className="grid gap-4 sm:grid-cols-3">
+                        {recentWorkouts.map(w => <WorkoutCard key={w.id} workout={w} isCompact={true} />)}
+                    </div>
+                </section>
             </div>
         </div>
     );
