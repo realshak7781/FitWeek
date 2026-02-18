@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext", // Change from nodenext to ESNext
+    "moduleResolution": "Bundler", // Crucial for Vite/React projects
+
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "jsx": "react-jsx",
+
+    "strict": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "noEmit": true, // Vite handles the building, not TS
+
+    // Optional: Keep these if you like the extra strictness,
+    // but they can be noisy during early development.
+    "noUncheckedIndexedAccess": true,
+    "verbatimModuleSyntax": false // Setting this to false is safer for now
+  },
+  "include": ["src"]
+}
