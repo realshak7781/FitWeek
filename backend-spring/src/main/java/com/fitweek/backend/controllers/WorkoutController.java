@@ -2,6 +2,7 @@ package com.fitweek.backend.controllers;
 
 
 import com.fitweek.backend.domain.entities.WorkoutSession;
+import com.fitweek.backend.service.AiArchitectClient;
 import com.fitweek.backend.service.WorkoutService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -16,13 +17,17 @@ import java.util.List;
 @RequestMapping("/api/workouts")
 public class WorkoutController {
     private final WorkoutService workoutService;
+    private final AiArchitectClient aiArchitectClient;
 
-    public WorkoutController(WorkoutService workoutService) {
+    public WorkoutController(WorkoutService workoutService,AiArchitectClient aiArchitectClient) {
         this.workoutService = workoutService;
+        this.aiArchitectClient = aiArchitectClient;
     }
 
     @PostMapping
     public ResponseEntity<WorkoutSession> createWorkout(@RequestBody WorkoutSession workoutSession) {
+        String aiNotes = aiArchitectClient.fetchArchitectNotes(workoutSession);
+        workoutSession.setAiCoachNotes(aiNotes);
         WorkoutSession session=workoutService.saveWorkout(workoutSession);
         return ResponseEntity.status(HttpStatus.CREATED).body(session);
     }

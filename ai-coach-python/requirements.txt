@@ -1,0 +1,6 @@
+fastapi==0.115.8
+uvicorn
+pydantic
+langgraph
+langchain-google-genai
+python-dotenv
