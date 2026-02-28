@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from models import WorkoutSessionDTO
+from graph import architect_brain # Import the compiled graph
 
 app = FastAPI(title="FitWeek AI Architect")
 
@@ -9,9 +10,22 @@ def health():
 
 @app.post("/analyze")
 async def analyze_workout(session: WorkoutSessionDTO):
-    print(f"Received session: {session.title}")
+    print(f"Received session for processing: {session.title}")
+
+    # Initialize the state for the Graph
+    initial_state = {
+        "workout_data": session.dict(),
+        "research_plan": [],
+        "research_results": [],
+        "final_notes": "",
+        "is_validated": False
+    }
+
+    # Run the Graph asynchronously
+    # This will trigger: Planner -> Researcher -> Auditor -> (Loop?) -> Writer
+    final_state = await architect_brain.ainvoke(initial_state)
 
     return {
-        "aiCoachNotes": "Infrastructure connected. The Architect is ready to learn your patterns.",
+        "aiCoachNotes": final_state["final_notes"],
         "status": "success"
     }
