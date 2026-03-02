@@ -3,15 +3,16 @@ spring:
     name: FitWeek-Backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/fitweek_db
-    username: postgres
-    password: my_db_fitWeek
+    # AWS RDS endpoint will be injected here
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/fitweek_db}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:my_db_fitWeek}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update # Automatically creates/updates tables based on Java classes
-    show-sql: false # Prints SQL queries in console for debugging
+      ddl-auto: update
+    show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -19,4 +20,5 @@ spring:
 # Custom property for our AI microservice
 ai:
   service:
-    url: http://localhost:8000
+    # AWS ECS/App Runner address will be injected here
+    url: ${AI_SERVICE_URL:http://localhost:8000}

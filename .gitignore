@@ -45,3 +45,6 @@ Thumbs.db
 # --- Docker & Local Data ---
 fitweek_data/
 .docker/
+
+# Root environment file
+.env

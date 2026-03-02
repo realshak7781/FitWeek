@@ -1,16 +1,36 @@
+version: '3.8'
+
 services:
   db:
-    image: postgres:15-alpine
+    image: postgres:15
     container_name: fitweek-db
-    restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: my_db_fitWeek
-      POSTGRES_DB: fitweek_db
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "5432:5432"
-    volumes:
-      - fitweek_data:/var/lib/postgresql/data
 
-volumes:
-  fitweek_data:
+  ai-service:
+    build: ./ai-coach-python
+    container_name: ai-architect-service
+    environment:
+      # We construct the URL using the variables
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    depends_on:
+      - db
+
+  backend:
+    build: ./backend-spring
+    container_name: fitweek-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_URL=jdbc:postgresql://db:5432/${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - AI_SERVICE_URL=http://ai-service:8000
+    depends_on:
+      - db
+      - ai-service

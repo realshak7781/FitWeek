@@ -26,10 +26,9 @@ public class WorkoutController {
 
     @PostMapping
     public ResponseEntity<WorkoutSession> createWorkout(@RequestBody WorkoutSession workoutSession) {
-        String aiNotes = aiArchitectClient.fetchArchitectNotes(workoutSession);
-        workoutSession.setAiCoachNotes(aiNotes);
-        WorkoutSession session=workoutService.saveWorkout(workoutSession);
-        return ResponseEntity.status(HttpStatus.CREATED).body(session);
+        WorkoutSession savedSession=workoutService.saveWorkout(workoutSession);
+        aiArchitectClient.generateAndSaveAiNotesAsync(savedSession);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedSession);
     }
 
     @GetMapping
