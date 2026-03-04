@@ -1,8 +1,9 @@
 import axios from "axios";
 import type {WorkoutSession} from "../typesUtil/types.js";
 
-const api= axios.create({
-    baseURL : 'http://localhost:8080/api',
+const api  = axios.create({
+    // This tells React to use the value from your .env file
+    baseURL : `${import.meta.env.VITE_APP_API_URL}/api`,
     headers : {
         'Content-Type': 'application/json',
     }

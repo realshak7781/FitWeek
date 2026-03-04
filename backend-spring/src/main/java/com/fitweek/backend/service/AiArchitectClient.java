@@ -13,9 +13,10 @@ public class AiArchitectClient {
     private final WebClient webClient;
     private final WorkoutRepository workoutRepository;
 
-    public AiArchitectClient(WebClient.Builder webClientBuilder,@Value("${ai.service.url}") String aiServiceUrl,
+    public AiArchitectClient(WebClient.Builder webClientBuilder,@Value("${AI_SERVICE_URL}") String aiServiceUrl,
                              WorkoutRepository workoutRepository) {
         // Points to the Python service you verified in Postman
+        System.out.println("AI URL IS: " + aiServiceUrl);
         this.webClient = webClientBuilder.baseUrl(aiServiceUrl).build();
         this.workoutRepository = workoutRepository;
     }
