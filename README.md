@@ -1,6 +1,6 @@
 # FitWeek: AI-Powered Fitness Automation & Tracking 🏋️‍♂️🤖
 
-![FitWeek Project UI](placeholder-for-project-image.png)
+![FitWeek Project UI](/assests/img.png)
 *A high-performance, cloud-native fitness application featuring an autonomous AI coaching agent.*
 
 ## 📖 Overview
