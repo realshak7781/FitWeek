@@ -63,6 +63,7 @@ The system is deployed using industry-standard DevOps and cloud delivery pattern
 
 ## ⚙️ System Design Diagram
 
+```mermaid
 graph TD
     %% Define Styles
     classDef aws fill:#FF9900,stroke:#232F3E,stroke-width:2px,color:black;
@@ -99,6 +100,7 @@ graph TD
     User -- REST API / CORS --> EC2
     SB -- JDBC --> RDS
     SB -- HTTP POST --> Render
+```
 
 ---
 
